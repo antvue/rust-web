@@ -62,7 +62,7 @@ RUN . "$NVM_DIR/nvm.sh" \
 RUN rustup component add rustfmt clippy
 
 # 安装 Rust Web 开发相关的工具
-RUN cargo install cargo-watch wasm-pack
+RUN cargo install cargo-watch wasm-pack cargo-expand cargo-workspace junitify
 
 # 创建工作目录并设置权限
 USER root
