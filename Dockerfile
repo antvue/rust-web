@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     ca-certificates \
     sudo \
+    vim \
     && rm -rf /var/lib/apt/lists/*
 
 # 创建 dev 用户并配置 sudo 免密码
@@ -59,16 +60,16 @@ RUN . "$NVM_DIR/nvm.sh" \
     && pnpm add -g tsx
 
 # 安装 Rust 组件
-RUN rustup component add rustfmt clippy
+RUN rustup component add rustfmt clippy llvm-tools-preview --toolchain nightly-x86_64-unknown-linux-gnu
 
 # 安装 Rust Web 开发相关的工具
-RUN cargo install cargo-watch wasm-pack cargo-expand cargo-workspace junitify
+RUN cargo install cargo-watch wasm-pack cargo-expand cargo-workspace junitify cargo-nextest cargo-llvm-cov
 
 # 创建工作目录并设置权限
 USER root
 RUN mkdir -p /app && chown -R dev:dev /app
 USER dev
-WORKDIR /app
+WORKDIR /builds
 
 # 复制项目文件
 COPY --chown=dev:dev . .
