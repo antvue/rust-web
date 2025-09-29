@@ -63,7 +63,8 @@ RUN . "$NVM_DIR/nvm.sh" \
 RUN rustup component add rustfmt clippy llvm-tools-preview --toolchain nightly-x86_64-unknown-linux-gnu
 
 # 安装 Rust Web 开发相关的工具
-RUN cargo install cargo-watch wasm-pack cargo-expand cargo-workspace junitify cargo-nextest cargo-llvm-cov
+RUN cargo install cargo-watch wasm-pack cargo-expand cargo-workspace junitify cargo-nextest cargo-llvm-cov \
+    tokio-console
 
 # 创建工作目录并设置权限
 USER root
